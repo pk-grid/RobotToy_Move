@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-
-// Enum to represent the possible directions the robot can face
+﻿// Enum to represent the possible directions the robot can face
 public enum Direction
 {
     NORTH,
@@ -17,7 +14,6 @@ public class Robot
     public int X { get; set; }
     public int Y { get; set; }
     public Direction Facing { get; set; }
-    public bool IsPlaced { get; set; }
 
     // Method to place the robot on the table
     public void Place(int x, int y, Direction facing)
@@ -28,37 +24,32 @@ public class Robot
             X = x;
             Y = y;
             Facing = facing;
-            IsPlaced = true;
         }
     }
 
     // Method to move the robot one unit forward
     public void Move()
     {
-        // Check if the robot is placed on the table
-        if (IsPlaced)
+        // Move the robot based on its current direction
+        //Ignore if the Robot is going to fall
+        switch (Facing)
         {
-            // Move the robot based on its current direction
-            //Ignore if the Robot is going to fall
-            switch (Facing)
-            {
-                case Direction.NORTH:
-                    if (Y < 4)
-                        Y++;
-                    break;
-                case Direction.SOUTH:
-                    if (Y > 0)
-                        Y--;
-                    break;
-                case Direction.EAST:
-                    if (X < 4)
-                        X++;
-                    break;
-                case Direction.WEST:
-                    if (X > 0)
-                        X--;
-                    break;
-            }
+            case Direction.NORTH:
+                if (Y < 4)
+                    Y++;
+                break;
+            case Direction.SOUTH:
+                if (Y > 0)
+                    Y--;
+                break;
+            case Direction.EAST:
+                if (X < 4)
+                    X++;
+                break;
+            case Direction.WEST:
+                if (X > 0)
+                    X--;
+                break;
         }
     }
 
@@ -66,61 +57,50 @@ public class Robot
     public void Left()
     {
         // Check if the robot is placed on the table
-        if (IsPlaced)
+        // Turn the robot left based on its current direction
+        switch (Facing)
         {
-            // Turn the robot left based on its current direction
-            switch (Facing)
-            {
-                case Direction.NORTH:
-                    Facing = Direction.WEST;
-                    break;
-                case Direction.SOUTH:
-                    Facing = Direction.EAST;
-                    break;
-                case Direction.EAST:
-                    Facing = Direction.NORTH;
-                    break;
-                case Direction.WEST:
-                    Facing = Direction.SOUTH;
-                    break;
-            }
+            case Direction.NORTH:
+                Facing = Direction.WEST;
+                break;
+            case Direction.SOUTH:
+                Facing = Direction.EAST;
+                break;
+            case Direction.EAST:
+                Facing = Direction.NORTH;
+                break;
+            case Direction.WEST:
+                Facing = Direction.SOUTH;
+                break;
         }
     }
 
     // Method to turn the robot right
     public void Right()
     {
-        // Check if the robot is placed on the table
-        if (IsPlaced)
+        // Turn the robot right based on its current direction
+        switch (Facing)
         {
-            // Turn the robot right based on its current direction
-            switch (Facing)
-            {
-                case Direction.NORTH:
-                    Facing = Direction.EAST;
-                    break;
-                case Direction.SOUTH:
-                    Facing = Direction.WEST;
-                    break;
-                case Direction.EAST:
-                    Facing = Direction.SOUTH;
-                    break;
-                case Direction.WEST:
-                    Facing = Direction.NORTH;
-                    break;
-            }
+            case Direction.NORTH:
+                Facing = Direction.EAST;
+                break;
+            case Direction.SOUTH:
+                Facing = Direction.WEST;
+                break;
+            case Direction.EAST:
+                Facing = Direction.SOUTH;
+                break;
+            case Direction.WEST:
+                Facing = Direction.NORTH;
+                break;
         }
     }
 
     // Method to report the robot's position and direction
     public void Report()
     {
-        // Check if the robot is placed on the table
-        if (IsPlaced)
-        {
-            // Print the robot's position and direction to the console
-            Console.WriteLine($"{X},{Y},{Facing}");
-        }
+        // Print the robot's position and direction to the console
+        Console.WriteLine($"{X},{Y},{Facing}");
     }
 }
 
@@ -145,7 +125,7 @@ class Program
 
             // Get the path to the commands.txt file
              commandsFilePath = Path.Combine(currentDirectory, "commands.txt"); 
-             //Console.WriteLine(currentDirectory);
+            //Console.WriteLine(currentDirectory);
              
         }
 
@@ -159,6 +139,7 @@ class Program
             foreach (var command in commands)
             {
                 // Split the command into parts
+                // To handle the Placement
                 var parts = command.Split(' ');
 
                 // Execute the command based on its type
