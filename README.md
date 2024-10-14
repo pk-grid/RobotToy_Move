@@ -14,7 +14,7 @@
 
 ## Usage(2)
 
-1. Create a text file containing the commands for the robot (e.g. `commands.txt`).
+1. Create a text file containing the commands for the robot (`commands.txt`).
 2. Run the program using the compiled executable and pass the path to the commands file as an argument.
    
 ## Commands
