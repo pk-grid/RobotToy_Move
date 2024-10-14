@@ -1,0 +1,35 @@
+#Test Case 1
+PLACE 0,0,NORTH
+MOVE
+REPORT
+
+#Test Case 2
+PLACE 0,0,NORTH
+LEFT
+REPORT
+
+#Test Case 3
+PLACE 1,2,EAST
+MOVE
+MOVE
+LEFT
+MOVE
+REPORT
+
+#Test x cannot fall off
+PLACE 1,2,EAST
+move
+move
+move
+move
+move
+REPORT
+
+
+#Test Y cannot fall off
+PLACE 2,2,NORTH
+MOVE
+MOVE
+MOVE
+MOVe
+REPORT
